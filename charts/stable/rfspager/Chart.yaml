@@ -1,0 +1,31 @@
+apiVersion: v2
+appVersion: 1.0.0
+description: rfspager helm package
+name: rfspager
+version: 1.0.0
+kubeVersion: ">=1.19.0-0"
+keywords:
+- rfspager
+home: https://github.com/nicko170/charts/tree/main/charts/stable/rfspager
+icon: https://rfspager.app/icon
+sources:
+- https://github.com/nicko170/rfspager-backend
+maintainers:
+- name: Nick Pratley
+  email: nick@npratley.net
+dependencies:
+- name: common
+  repository: https://library-charts.k8s-at-home.com
+  version: 4.3.0
+- name: postgresql
+  version: 10.14.4
+  repository: https://charts.bitnami.com/bitnami
+  condition: postgresql.enabled
+- name: redis
+  version: 14.1.1
+  repository: https://charts.bitnami.com/bitnami
+  condition: redis.enabled
+annotations:
+  artifacthub.io/changes: |
+    - kind: added
+      description: Initial version
