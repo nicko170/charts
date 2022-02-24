@@ -41,10 +41,10 @@ redis:
     enabled: false
 
 postgresql:
-  enabled: true
-  postgresqlUsername: wallabag
-  postgresqlPassword: wallabag-pass
-  postgresqlDatabase: wallabag
+  enabled: false
+  postgresqlUsername: rfspager
+  postgresqlPassword: rfspager
+  postgresqlDatabase: rfspager
   persistence:
     enabled: true
-    size: 10Gi
+    size: 5Gi
