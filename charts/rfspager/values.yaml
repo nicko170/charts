@@ -13,9 +13,11 @@ image:
   # -- image pull policy
   pullPolicy: IfNotPresent
 
+scheduleCommand: /process/cnb/schedule
+
 env:
   TZ: Australia/Sydney
-
+  PORT: 8080
 # -- Configures service settings for the chart.
 # @default -- See values.yaml
 service:

@@ -1,0 +1,23 @@
+{{- if .Values.scheduleCommand -}}
+# ------------------- CronJob ------------------- #
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: {{ include "common.names.fullname" . }}-backup
+  labels:
+  {{- include "common.labels" . | nindent 4 }}
+spec:
+  schedule: {{ .Values.schedule | quote }}
+  concurrencyPolicy: Replace
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          name: {{ include "common.names.fullname" . }}-backup
+          labels:
+        {{- include "common.labels.selectorLabels" . | nindent 12 }}
+        spec:
+          containers:
+          {{- include "rfspager.cronContainer" . | nindent 12 }}
+
+  {{- end -}}
