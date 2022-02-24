@@ -17,6 +17,7 @@ spec:
           labels:
         {{- include "common.labels.selectorLabels" . | nindent 12 }}
         spec:
+          restartPolicy: Never
           containers:
           {{- include "rfspager.cronContainer" . | nindent 12 }}
 
