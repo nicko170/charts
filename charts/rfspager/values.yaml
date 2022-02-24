@@ -13,7 +13,12 @@ image:
   # -- image pull policy
   pullPolicy: IfNotPresent
 
+schedule: "*/1 * * * *"
 scheduleCommand: /process/cnb/schedule
+
+workerMin: 3
+workerMax: 10
+workerCommand: /process/cnb/worker
 
 env:
   TZ: Australia/Sydney
