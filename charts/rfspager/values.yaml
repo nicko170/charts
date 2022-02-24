@@ -7,7 +7,7 @@
 
 image:
   # -- image repository
-  repository: nick170/rfspager
+  repository: docker.io/nick170/rfspager
   # -- image tag
   tag: main-8c8c5b7-1644025165
   # -- image pull policy
