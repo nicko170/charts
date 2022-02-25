@@ -1,8 +1,8 @@
 apiVersion: v2
-appVersion: main-8c8c5b7-1644025165
+appVersion: v1.0.10
 description: rfspager helm package
 name: rfspager
-version: 1.0.6
+version: 1.0.10
 kubeVersion: ">=1.19.0-0"
 keywords:
 - rfspager

@@ -9,16 +9,16 @@ image:
   # -- image repository
   repository: docker.io/nick170/rfspager
   # -- image tag
-  tag: main-8c8c5b7-1644025165
+  tag: v1.0.10
   # -- image pull policy
   pullPolicy: IfNotPresent
 
 schedule: "*/1 * * * *"
-scheduleCommand: /process/cnb/schedule
+scheduleCommand: /cnb/process/schedule
 
 workerMin: 3
 workerMax: 10
-workerCommand: /process/cnb/worker
+workerCommand: /cnb/process/worker
 
 env:
   TZ: Australia/Sydney
