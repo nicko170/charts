@@ -1,23 +1,28 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ template "common.names.fullname" . }}-workers
+  name: {{ include "rfspager.fullname" . }}-worker
   labels:
-    app: {{ template "common.names.fullname" . }}
-    chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
-    release: {{ .Release.Name }}
-    heritage: {{ .Release.Service }}
+    app.kubernetes.io/name: {{ include "rfspager.name" . }}
+    helm.sh/chart: {{ include "rfspager.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    {{- if .Chart.AppVersion }}
+    app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
+    {{- end }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+
 spec:
   selector:
     matchLabels:
-      app: {{ template "common.names.fullname" . }}-workers
+      app: {{ template "rfspager.name" . }}-workers
       release: {{ .Release.Name }}
   replicas: {{ default 1 .Values.workerCount }}
   revisionHistoryLimit: 3
   template:
     metadata:
       labels:
-        {{- include "common.labels.selectorLabels" . | nindent 8 }}
+        app.kubernetes.io/name: {{ include "rfspager.name" . }}
+        app.kubernetes.io/instance: {{ .Release.Name }}
     spec:
       containers:
         {{- include "rfspager.workerContainer" . | nindent 8 }}
