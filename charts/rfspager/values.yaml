@@ -16,9 +16,8 @@ image:
 schedule: "*/1 * * * *"
 scheduleCommand: /cnb/process/schedule
 
-workerMin: 3
-workerMax: 10
 workerCommand: /cnb/process/worker
+workerCount: 10
 
 env:
   TZ: Australia/Sydney

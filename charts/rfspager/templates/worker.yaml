@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ template "common.names.fullname" . }}-workers
+  labels:
+    app: {{ template "common.names.fullname" . }}
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  selector:
+    matchLabels:
+      app: {{ template "common.names.fullname" . }}-workers
+      release: {{ .Release.Name }}
+  replicas: {{ default 1 .Values.workerCount }}
+  revisionHistoryLimit: 3
+  template:
+    metadata:
+      labels:
+        {{- include "common.labels.selectorLabels" . | nindent 8 }}
+    spec:
+      containers:
+        {{- include "rfspager.workerContainer" . | nindent 8 }}
