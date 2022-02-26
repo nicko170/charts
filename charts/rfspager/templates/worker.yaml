@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "rfspager.fullname" . }}-worker
+  name: {{ include "rfspager.fullname" . }}-workers
   labels:
     app.kubernetes.io/name: {{ include "rfspager.name" . }}
     helm.sh/chart: {{ include "rfspager.chart" . }}
