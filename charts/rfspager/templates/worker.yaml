@@ -21,8 +21,8 @@ spec:
   template:
     metadata:
       labels:
-        app.kubernetes.io/name: {{ include "rfspager.name" . }}
-        app.kubernetes.io/instance: {{ .Release.Name }}
+        app.kubernetes.io/name: {{ include "rfspager.name" . }}-workers
+        app.kubernetes.io/instance: {{ .Release.Name }}-workers
     spec:
       containers:
         {{- include "rfspager.workerContainer" . | nindent 8 }}
