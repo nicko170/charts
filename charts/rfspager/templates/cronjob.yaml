@@ -18,6 +18,10 @@ spec:
         {{- include "common.labels.selectorLabels" . | nindent 12 }}
         spec:
           restartPolicy: Never
+          {{- with .Values.imagePullSecrets }}
+          imagePullSecrets:
+            {{- toYaml . | nindent 12 }}
+            {{- end }}
           containers:
           {{- include "rfspager.cronContainer" . | nindent 12 }}
 

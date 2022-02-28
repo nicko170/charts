@@ -16,6 +16,8 @@ spec:
       app.kubernetes.io/name: {{ include "rfspager.name" . }}-workers
 
   replicas: {{ default 1 .Values.workerCount }}
+  strategy:
+    type: RollingUpdate
   revisionHistoryLimit: 3
   template:
     metadata:
@@ -24,5 +26,9 @@ spec:
         app.kubernetes.io/name: {{ include "rfspager.name" . }}-workers
 
     spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+      {{- toYaml . | nindent 8 }}
+      {{- end }}
       containers:
         {{- include "rfspager.workerContainer" . | nindent 8 }}
