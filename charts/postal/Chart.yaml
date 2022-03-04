@@ -2,7 +2,7 @@ apiVersion: v2
 appVersion: 2.1.1
 description: Postal helm package
 name: Postal
-version: 1.0.0
+version: 1.0.1
 kubeVersion: ">=1.16.0-0"
 keywords:
 - Postal
