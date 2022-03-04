@@ -1,0 +1,31 @@
+apiVersion: v2
+appVersion: 2.1.1
+description: Postal helm package
+name: Postal
+version: 1.0.0
+kubeVersion: ">=1.16.0-0"
+keywords:
+- Postal
+home: https://github.com/nicko170/charts/tree/master/charts/postal
+icon: https://postalserver.io/icon
+sources:
+- https://github.com/postalserver/postal
+maintainers:
+- name: Postal
+  email: Postal@Postal.com
+dependencies:
+  - name: common
+    repository: https://library-charts.k8s-at-home.com
+    version: 4.3.0
+  - name: mariadb
+    version: 10.3.7
+    repository: https://charts.bitnami.com/bitnami
+    condition: mariadb.enabled
+  - name: rabbitmq
+    version: 8.29.3
+    repository: https://charts.bitnami.com/bitnami
+    condition: rabbitmq.enabled
+annotations:
+  artifacthub.io/changes: |
+    - kind: added
+      description: Initial version
