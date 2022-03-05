@@ -17,6 +17,10 @@ spec:
           labels:
         {{- include "common.labels.selectorLabels" . | nindent 12 }}
         spec:
+          {{- with (include "common.controller.volumes" . | trim) }}
+          volumes:
+          {{- nindent 12 . }}
+          {{- end }}
           restartPolicy: Never
           {{- with .Values.imagePullSecrets }}
           imagePullSecrets:

@@ -3,7 +3,6 @@
 - name: {{ include "common.names.fullname" . }}-worker
   image: {{ printf "%s:%s" .Values.image.repository (default .Chart.AppVersion .Values.image.tag) | quote }}
   imagePullPolicy: {{ .Values.image.pullPolicy }}
-
   {{- with .Values.workerCommand }}
   command:
     {{- if kindIs "string" . }}
@@ -67,6 +66,10 @@
   {{- end }}
   ports:
   {{- include "common.controller.ports" . | trim | nindent 4 }}
+  {{- with (include "common.controller.volumeMounts" . | trim) }}
+  volumeMounts:
+  {{- nindent 4 . }}
+  {{- end }}
   {{- include "common.controller.probes" . | trim | nindent 2 }}
   {{- with .Values.resources }}
   resources:

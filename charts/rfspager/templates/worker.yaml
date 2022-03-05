@@ -30,5 +30,9 @@ spec:
       imagePullSecrets:
       {{- toYaml . | nindent 8 }}
       {{- end }}
+      {{- with (include "common.controller.volumes" . | trim) }}
+      volumes:
+      {{- nindent 8 . }}
+      {{- end }}
       containers:
         {{- include "rfspager.workerContainer" . | nindent 8 }}
