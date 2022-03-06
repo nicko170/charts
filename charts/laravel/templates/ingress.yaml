@@ -12,7 +12,7 @@
 {{- end -}}
 {{ end -}}
 
-apiVersion: {{include "laravel.capabilities.ingress.isStable" . }}
+apiVersion: {{ include "laravel.capabilities.ingress.apiVersion" . }}
 kind: Ingress
 metadata:
   name: {{ $ingressName }}
