@@ -20,6 +20,7 @@ spec:
             {{ include "laravel.labels" . | nindent 12 }}
             {{ include "laravel.labels.cron" . | nindent 12 }}
         spec:
+          restartPolicy: Never
           {{- with .Values.volumes }}
           volumes:
           {{- toYaml . | nindent 12 }}
