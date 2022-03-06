@@ -7,7 +7,7 @@ entries:
           description: Initial version
     apiVersion: v2
     appVersion: v0.0.0
-    created: "2022-03-06T06:04:27.977814361Z"
+    created: "2022-03-06T06:12:36.687947134Z"
     dependencies:
     - condition: postgresql.enabled
       name: postgresql
@@ -18,7 +18,7 @@ entries:
       repository: https://charts.bitnami.com/bitnami
       version: 16.4.5
     description: Opinionated Laravel Helm Charts
-    digest: af45fe7fc0072e5d0ba9e6155f9abb7928f3d9c0019e7d2bba852b6c0916690f
+    digest: 936b59e5200eec7d9e99abb328b247d775a5e38de5ef058949824ae795efb4a7
     home: https://github.com/nicko170/charts/tree/main/charts/stable/laravel
     icon: https://laravel.app/icon
     keywords:
@@ -31,38 +31,6 @@ entries:
     sources:
     - https://github.com/nicko170/laravel
     urls:
-    - https://github.com/nicko170/charts/releases/download/laravel-0.0.3/laravel-0.0.3.tgz
-    version: 0.0.3
-  - annotations:
-      artifacthub.io/changes: |
-        - kind: added
-          description: Initial version
-    apiVersion: v2
-    appVersion: v0.0.0
-    created: "2022-03-06T05:44:56.958881772Z"
-    dependencies:
-    - condition: postgresql.enabled
-      name: postgresql
-      repository: https://charts.bitnami.com/bitnami
-      version: 11.1.3
-    - condition: redis.enabled
-      name: redis
-      repository: https://charts.bitnami.com/bitnami
-      version: 16.4.5
-    description: Opinionated Laravel Helm Charts
-    digest: 1892f8b7a6366fbedcfa2e0482ac6ede38916570bd65b9590c5b87f40c514633
-    home: https://github.com/nicko170/charts/tree/main/charts/stable/laravel
-    icon: https://laravel.app/icon
-    keywords:
-    - laravel
-    kubeVersion: '>=1.19.0-0'
-    maintainers:
-    - email: nick@npratley.net
-      name: Nick Pratley
-    name: laravel
-    sources:
-    - https://github.com/nicko170/laravel
-    urls:
-    - https://github.com/nicko170/charts/releases/download/laravel-0.0.2/laravel-0.0.2.tgz
-    version: 0.0.2
-generated: "2022-03-06T06:04:27.977829761Z"
+    - https://github.com/nicko170/charts/releases/download/laravel-0.0.4/laravel-0.0.4.tgz
+    version: 0.0.4
+generated: "2022-03-06T06:12:36.687961834Z"
