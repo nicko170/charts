@@ -1,0 +1,126 @@
+#
+# IMPORTANT NOTE
+#
+# This chart inherits from our common library chart. You can check the default values/options here:
+# https://github.com/k8s-at-home/library-charts/tree/main/charts/stable/common/values.yaml
+#
+
+image:
+  repository: docker.io/nick170/laravel
+  tag: v1.1.4
+  pullPolicy: IfNotPresent
+
+web:
+  enabled: true
+  count: 3
+  command: /cnb/process/web
+
+cron:
+  enabled: true
+  command: /cnb/process/schedule
+  schedule: "*/1 * * * *"
+
+worker:
+  enabled: true
+  count: 5
+  command: /cnb/process/worker
+
+env:
+  TZ: Australia/Sydney
+  PORT: 8080
+
+service:
+  ## @param service.type Kubernetes Service type
+  ##
+  type: ClusterIP
+  ## @param service.clusterIP Static clusterIP or None for headless services
+  ## e.g:
+  ## clusterIP: None
+  ##
+  clusterIP: ""
+  ## @param service.port PostgreSQL port
+  ##
+  port: 8080
+  ## @param service.nodePort Specify the nodePort value for the LoadBalancer and NodePort service types
+  ## ref: https://kubernetes.io/docs/concepts/services-networking/service/#type-nodeport
+  ##
+  nodePort: ""
+  ## @param service.annotations Annotations for PostgreSQL service
+  ##
+  annotations: {}
+  ## @param service.loadBalancerIP Load balancer IP if service type is `LoadBalancer`
+  ## Set the LoadBalancer service type to internal only
+  ## ref: https://kubernetes.io/docs/concepts/services-networking/service/#internal-load-balancer
+  ##
+  loadBalancerIP: ""
+  ## @param service.externalTrafficPolicy Enable client source IP preservation
+  ## ref https://kubernetes.io/docs/tasks/access-application-cluster/create-external-load-balancer/#preserving-the-client-source-ip
+  ##
+  externalTrafficPolicy: Cluster
+  ## @param service.loadBalancerSourceRanges Addresses that are allowed when service is LoadBalancer
+  ## https://kubernetes.io/docs/tasks/access-application-cluster/configure-cloud-provider-firewall/#restrict-access-for-loadbalancer-service
+  ##
+  ## loadBalancerSourceRanges:
+  ## - 10.10.10.0/24
+  ##
+  loadBalancerSourceRanges: []
+
+  ports:
+    http:
+      # -- Enables or disables the port
+      enabled: true
+
+      # -- Make this the primary port (used in probes, notes, etc...)
+      # If there is more than 1 service, make sure that only 1 port is marked as primary.
+      primary: true
+
+      # -- The port number
+      port: 8080
+
+      # -- Port protocol.
+      # Support values are `HTTP`, `HTTPS`, `TCP` and `UDP`.
+      # HTTPS and HTTPS spawn a TCP service and get used for internal URL and name generation
+      protocol: HTTP
+
+      # -- Specify a service targetPort if you wish to differ the service port from the application port.
+      # If `targetPort` is specified, this port number is used in the container definition instead of
+      # the `port` value. Therefore named ports are not supported for this field.
+      targetPort:
+
+      # -- Specify the nodePort value for the LoadBalancer and NodePort service types.
+      # [[ref]](https://kubernetes.io/docs/concepts/services-networking/service/#type-nodeport)
+      nodePort:
+
+
+ingress:
+  enabled: true
+  ingressClassName: "nginx"
+
+  hosts:
+    - host: "rfspager.app"
+      paths:
+        - path: /
+          pathType: Prefix
+  tls:
+    - hosts:
+        - "rfspager.app"
+      secretName: "cert-rfspager.app"
+
+redis:
+  enabled: false
+  master:
+    persistence:
+      enabled: true
+      size: 1Gi
+  architecture: standalone
+  auth:
+    enabled: false
+
+postgresql:
+  enabled: false
+  postgresqlUsername: laravel
+  postgresqlPassword: laravel
+  postgresqlDatabase: laravel
+  persistence:
+    enabled: true
+    size: 5Gi

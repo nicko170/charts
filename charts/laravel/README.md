@@ -1,14 +1,14 @@
-# rfspager
+# laravel
 
 ![Version: 1.0.0](https://img.shields.io/badge/Version-1.0.0-informational?style=flat-square) ![AppVersion: 1.0.0](https://img.shields.io/badge/AppVersion-1.0.0-informational?style=flat-square)
 
-rfspager helm package
+laravel helm package
 
 **This chart is not maintained by the upstream project and any issues with the chart should be raised [here](https://github.com/k8s-at-home/charts/issues/new/choose)**
 
 ## Source Code
 
-* <https://github.com/rfspager/rfspager-docker>
+* <https://github.com/laravel/laravel-docker>
 
 ## Requirements
 
@@ -25,23 +25,23 @@ Kubernetes: `>=1.16.0-0`
 ```console
 helm repo add k8s-at-home https://k8s-at-home.com/charts/
 helm repo update
-helm install rfspager k8s-at-home/rfspager
+helm install laravel k8s-at-home/laravel
 ```
 
 ## Installing the Chart
 
-To install the chart with the release name `rfspager`
+To install the chart with the release name `laravel`
 
 ```console
-helm install rfspager k8s-at-home/rfspager
+helm install laravel k8s-at-home/laravel
 ```
 
 ## Uninstalling the Chart
 
-To uninstall the `rfspager` deployment
+To uninstall the `laravel` deployment
 
 ```console
-helm uninstall rfspager
+helm uninstall laravel
 ```
 
 The command removes all the Kubernetes components associated with the chart **including persistent volumes** and deletes the release.
@@ -54,15 +54,15 @@ Other values may be used from the [values.yaml](https://github.com/k8s-at-home/l
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm install`.
 
 ```console
-helm install rfspager \
+helm install laravel \
   --set env.TZ="America/New York" \
-    k8s-at-home/rfspager
+    k8s-at-home/laravel
 ```
 
 Alternatively, a YAML file that specifies the values for the above parameters can be provided while installing the chart.
 
 ```console
-helm install rfspager k8s-at-home/rfspager -f values.yaml
+helm install laravel k8s-at-home/laravel -f values.yaml
 ```
 
 ## Custom configuration
@@ -75,10 +75,10 @@ N/A
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| env | object | See below | environment variables. See more environment variables in the [rfspager documentation](https://rfspager.org/docs). |
+| env | object | See below | environment variables. See more environment variables in the [laravel documentation](https://laravel.org/docs). |
 | env.TZ | string | `"UTC"` | Set the container timezone |
 | image.pullPolicy | string | `"IfNotPresent"` | image pull policy |
-| image.repository | string | `"rfspager/rfspager"` | image repository |
+| image.repository | string | `"laravel/laravel"` | image repository |
 | image.tag | string | `"1.0.0"` | image tag |
 | ingress.main | object | See values.yaml | Enable and configure ingress settings for the chart under this key. |
 | persistence | object | See values.yaml | Configure persistence settings for the chart under this key. |

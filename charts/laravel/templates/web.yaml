@@ -1,0 +1,87 @@
+{{- if .Values.web.enabled}}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "laravel.names.fullname" . }}-web
+  labels:
+  {{ include "laravel.labels" . | nindent 4 }}
+  {{ include "laravel.labels.web" . | nindent 4 }}
+
+spec:
+  selector:
+    matchLabels:
+  {{ include "laravel.labels.web" . | nindent 6 }}
+
+  replicas: {{ default 1 .Values.web.count }}
+  strategy:
+    type: RollingUpdate
+  revisionHistoryLimit: 3
+  template:
+    metadata:
+      labels:
+    {{ include "laravel.labels" . | nindent 8 }}
+    {{ include "laravel.labels.web" . | nindent 8 }}
+
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+      {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.volumes }}
+      volumes:
+      {{- toYaml . | nindent 8 }}
+      {{- end }}
+      dnsPolicy: ClusterFirst
+      containers:
+        - name: {{ include "laravel.names.name" . }}-web
+          image: {{ printf "%s:%s" .Values.image.repository (default .Chart.AppVersion .Values.image.tag) | quote }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          {{- with .Values.web.command }}
+          command:
+            - {{ . }}
+              {{- end }}
+
+          {{- with .Values.env }}
+          env:
+            {{- range $k, $v := . }}
+            {{- $name := $k }}
+            {{- $value := $v }}
+            {{- if kindIs "int" $name }}
+            {{- $name = required "environment variables as a list of maps require a name field" $value.name }}
+            {{- end }}
+            - name: {{ quote $name }}
+              {{- if kindIs "map" $value -}}
+              {{- if hasKey $value "value" }}
+              {{- $value = $value.value -}}
+              {{- else if hasKey $value "valueFrom" }}
+              {{- toYaml $value | nindent 6 }}
+              {{- else }}
+              {{- dict "valueFrom" $value | toYaml | nindent 6 }}
+              {{- end }}
+              {{- end }}
+              {{- if not (kindIs "map" $value) }}
+              {{- if kindIs "string" $value }}
+              {{- $value = tpl $value $ }}
+              {{- end }}
+              value: {{ quote $value }}
+          {{- end }}
+          {{- end }}
+          {{- end }}
+          {{- if .Values.envFrom }}
+          envFrom:
+          {{- with .Values.envFrom }}
+          {{- toYaml . | nindent 12 }}
+          {{- end }}
+
+          {{- with .Values.volumeMounts }}
+          volumeMounts:
+          {{- toYaml . | nindent 12 }}
+          {{- end }}
+
+          {{- with .Values.service.port }}
+          ports:
+            - containerPort: {{ . }}
+              name: http
+          {{- end }}
+  {{- end }}
+{{- end }}

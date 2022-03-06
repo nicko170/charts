@@ -1,22 +1,19 @@
 apiVersion: v2
-appVersion: v1.1.4
-description: rfspager helm package
-name: rfspager
-version: 1.1.4
+appVersion: v0.0.0
+description: Opinionated Laravel Helm Charts
+name: laravel
+version: 0.0.1
 kubeVersion: ">=1.19.0-0"
 keywords:
-- rfspager
-home: https://github.com/nicko170/charts/tree/main/charts/stable/rfspager
-icon: https://rfspager.app/icon
+- laravel
+home: https://github.com/nicko170/charts/tree/main/charts/stable/laravel
+icon: https://laravel.app/icon
 sources:
-- https://github.com/nicko170/rfspager-backend
+- https://github.com/nicko170/laravel
 maintainers:
 - name: Nick Pratley
   email: nick@npratley.net
 dependencies:
-- name: common
-  repository: https://library-charts.k8s-at-home.com
-  version: 4.3.0
 - name: postgresql
   version: 11.1.3
   repository: https://charts.bitnami.com/bitnami
