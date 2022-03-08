@@ -7,6 +7,38 @@ entries:
           description: Initial version
     apiVersion: v2
     appVersion: v0.0.0
+    created: "2022-03-08T23:42:14.233326843Z"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 11.1.3
+    - condition: redis.enabled
+      name: redis
+      repository: https://charts.bitnami.com/bitnami
+      version: 16.4.5
+    description: Opinionated Laravel Helm Charts
+    digest: fdc71ae93e551f4b7e1f8590329eeaf548506fce7ad973984ae8719df437bf13
+    home: https://github.com/nicko170/charts/tree/main/charts/stable/laravel
+    icon: https://laravel.app/icon
+    keywords:
+    - laravel
+    kubeVersion: '>=1.19.0-0'
+    maintainers:
+    - email: nick@npratley.net
+      name: Nick Pratley
+    name: laravel
+    sources:
+    - https://github.com/nicko170/laravel
+    urls:
+    - https://github.com/nicko170/charts/releases/download/laravel-0.0.7/laravel-0.0.7.tgz
+    version: 0.0.7
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: Initial version
+    apiVersion: v2
+    appVersion: v0.0.0
     created: "2022-03-06T08:16:10.887478999Z"
     dependencies:
     - condition: postgresql.enabled
@@ -97,4 +129,4 @@ entries:
     urls:
     - https://github.com/nicko170/charts/releases/download/laravel-0.0.4/laravel-0.0.4.tgz
     version: 0.0.4
-generated: "2022-03-06T08:16:10.887513299Z"
+generated: "2022-03-08T23:42:14.233342443Z"
