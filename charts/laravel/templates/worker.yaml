@@ -1,4 +1,4 @@
-{{- if .Values.worker }}
+{{- if .Values.worker.enabled }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
