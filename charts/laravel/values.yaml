@@ -116,6 +116,9 @@ redis:
   auth:
     enabled: false
 
+mysql:
+  enabled: false
+
 postgresql:
   enabled: false
   postgresqlUsername: laravel
