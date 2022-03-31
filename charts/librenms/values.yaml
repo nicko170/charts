@@ -1,0 +1,121 @@
+---
+credentials:
+  application:
+    administrativeUser:
+    administrativePassword:
+    administrativeEmail:
+    key:
+  mysql:
+    rootPassword:
+    user:
+    password:
+  ldap:
+    user:
+    userDN:
+    password:
+  active_directory:
+    user:
+    userDN:
+    password:
+  redis:
+    password:
+
+Application:
+  serviceType: cluster
+  servicePort: 80
+  providerPort: 8000
+  authMechanism: "mysql"
+  mountCertificates: false
+  # for .serviceType 'ingress' ...
+  ingressHost:
+  ingressPath: "/"
+  # for .serviceType 'loadBalancer' ...
+  installLoadBalancer: false
+  baseURL:
+  #
+  memoryLimit: 1024
+  mysqlReadinessDelay: 15
+  prepareDatabaseImage:
+    repository: "docker.io/nick170/librenms-application-prepare-mysql"
+    tag: "0.1.8"
+  prepareVolumeImage:
+    repository: "docker.io/nick170/librenms-application-prepare-volume"
+    tag: "0.1.8"
+  phpImage:
+    repository: "docker.io/nick170/librenms-application-php-fpm"
+    tag: "0.1.8"
+  nginxImage:
+    repository: "docker.io/nick170/librenms-application-nginx"
+    tag: "0.1.8"
+  replicas: 1
+  TLS:
+
+LDAP:
+  debug: false
+  server: "ldap://localhost"
+  port: 636
+  version: 3
+  prefix: "uid="
+  suffix: ",ou=users,dc=example,dc=org"
+  groupBase: "ou=groups,dc=example,dc=org"
+  adminGroup: "adminGroup"
+  userGroup: "userGroup"
+  groupMemberAttribute: "memberUid"
+  userDN: true
+  wildcardOU: false
+  uidAttribute:
+  group:
+
+ActiveDirectory:
+  debug: false
+  url: "ldaps://server.example.org"
+  timeout: 5
+  domain: "example.org"
+  check_certificates: true
+  base_dn: "dc=example,dc=org"
+  users_purge: 30
+  require_groupmembership: true
+  admin_group: "adminGroup"
+  user_group: "userGroup"
+  user_filter:
+  group_filter:
+
+Dispatcher:
+  instances: 4
+  pollerWorkers: 24
+  discoveryWorkers: 16
+  serviceWorkers: 8
+  logLevel: "-v"
+  image:
+    repository: "docker.io/nick170/librenms-dispatcher"
+    tag: "0.1.8"
+
+snmpPing:
+  enabled: false
+  # for .snmpPing.enabled true ...
+  recordRTT: true
+
+checkMySQL:
+  image:
+    repository: "docker.io/nick170/librenms-check-mysql"
+    tag: "0.1.8"
+
+checkRRDcached:
+  image:
+    repository: "docker.io/nick170/librenms-check-rrdcached"
+    tag: "0.1.8"
+
+checkMemcached:
+  image:
+    repository: "docker.io/nick170/librenms-check-memcached"
+    tag: "0.1.8"
+
+checkRedis:
+  image:
+    repository: "docker.io/nick170/librenms-check-redis"
+    tag: "0.1.8"
+
+cleanupApplication:
+  image:
+    repository: "docker.io/nick170/librenms-cleanup-application"
+    tag: "0.1.8"

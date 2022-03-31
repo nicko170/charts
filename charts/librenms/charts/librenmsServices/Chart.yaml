@@ -1,0 +1,6 @@
+apiVersion: v2
+name: librenmsServices
+description: LibreNMS supporting services
+type: application
+version: 0.1.8
+appVersion: 1.70

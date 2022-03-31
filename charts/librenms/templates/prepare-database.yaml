@@ -1,0 +1,76 @@
+{{- if .Release.IsInstall }}
+apiVersion: batch/v1
+kind: Job
+metadata:
+  namespace: {{ .Release.Namespace }}
+  name: prepare-database
+  labels:
+    helm.sh/chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+  annotations:
+    "helm.sh/hook": post-install
+    "helm.sh/hook-weight": "0"
+spec:
+  ttlSecondsAfterFinished: 300
+  template:
+    metadata:
+      namespace: {{ .Release.Namespace }}
+      name: prepare-database
+      labels:
+        application: librenms
+        component: install
+    spec:
+      securityContext:
+        runAsUser: 1010
+        runAsGroup: 1010
+      initContainers:
+      - name: readiness-delay
+        image: busybox:latest
+        command: ['sh', '-c', "sleep {{ .Values.Application.mysqlReadinessDelay }}"]
+      containers:
+      - name: prepare-database
+        image: {{ .Values.Application.prepareDatabaseImage.repository }}:{{ .Values.Application.prepareDatabaseImage.tag }}
+        imagePullPolicy: Always
+        envFrom:
+        - configMapRef:
+            name: application
+        env:
+        - name: LIBRENMS_MYSQL_USER
+          valueFrom:
+            secretKeyRef:
+              name: application
+              key: librenms_mysql_user
+        - name: LIBRENMS_MYSQL_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: application
+              key: librenms_mysql_password
+        - name: LIBRENMS_REDIS_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: application
+              key: librenms_redis_password
+        {{- if eq .Values.Application.authMechanism "mysql" }}
+        - name: LIBRENMS_ADMINISTRATIVE_USER
+          valueFrom:
+            secretKeyRef:
+              name: application
+              key: librenms_administrative_user
+        - name: LIBRENMS_ADMINISTRATIVE_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: application
+              key: librenms_administrative_password
+        - name: LIBRENMS_ADMINISTRATIVE_EMAIL
+          valueFrom:
+            secretKeyRef:
+              name: application
+              key: librenms_administrative_email
+        {{- end }}
+        - name: LIBRENMS_APPLICATION_KEY
+          valueFrom:
+            secretKeyRef:
+              name: application
+              key: librenms_application_key
+      restartPolicy: OnFailure
+  backoffLimit: 3
+{{- end }}

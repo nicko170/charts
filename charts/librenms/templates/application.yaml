@@ -1,0 +1,214 @@
+{{- if eq .Values.Application.serviceType "ingress" }}
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  namespace: {{ .Release.Namespace }}
+  name: application
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+{{- with .Values.Application.TLS }}
+  tls:
+{{ toYaml . | indent 2 }}
+{{- end }}
+  rules:
+  - host: {{ required "ingress host name must be provided (Application.ingressHost)" .Values.Application.ingressHost }}
+    http:
+      paths:
+      - path: {{ .Values.Application.ingressPath }}
+        backend:
+          serviceName: application
+          servicePort: {{ .Values.Application.servicePort }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: {{ .Release.Namespace }}
+  name: application
+spec:
+  type: NodePort
+  selector:
+    component: application
+  ports:
+  - name: application
+    port: {{ .Values.Application.servicePort }}
+    targetPort: application
+---
+{{- else if eq .Values.Application.serviceType "loadBalancer" }}
+{{- if .Values.Application.installLoadBalancer }}
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: {{ .Release.Namespace }}
+  name: application
+spec:
+  type: LoadBalancer
+  loadBalancerSourceRanges:
+  - 0.0.0.0/0
+  externalTrafficPolicy: Local
+  selector:
+    component: application
+  ports:
+  - name: application
+    port: {{ .Values.Application.servicePort }}
+    targetPort: application
+---
+{{- end }}
+{{- else }}
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: {{ .Release.Namespace }}
+  name: application
+spec:
+  type: ClusterIP
+  selector:
+    component: application
+  ports:
+  - name: application
+    port: {{ .Values.Application.servicePort }}
+    targetPort: application
+---
+{{- end }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: {{ .Release.Namespace }}
+  name: application
+  labels:
+    application: librenms
+spec:
+  replicas: {{ .Values.Application.replicas }}
+  selector:
+    matchLabels:
+      component: application
+  template:
+    metadata:
+      namespace: {{ .Release.Namespace }}
+      name: application
+      labels:
+        application: librenms
+        component: application
+    spec:
+      initContainers:
+      - name: prepare-volume
+        image: {{ .Values.Application.prepareVolumeImage.repository }}:{{ .Values.Application.prepareVolumeImage.tag }}
+        imagePullPolicy: Always
+        envFrom:
+        - configMapRef:
+            name: application
+        env:
+        - name: LIBRENMS_MYSQL_USER
+          valueFrom:
+            secretKeyRef:
+              name: application
+              key: librenms_mysql_user
+        - name: LIBRENMS_MYSQL_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: application
+              key: librenms_mysql_password
+        {{- if eq .Values.Application.authMechanism "ldap" }}
+        - name: LIBRENMS_AUTH_LDAP_BINDUSER
+          valueFrom:
+            secretKeyRef:
+              name: application
+              key: librenms_ldap_user
+        {{- if .Values.credentials.ldap.userDN }}
+        - name: LIBRENMS_AUTH_LDAP_BINDDN
+          valueFrom:
+            secretKeyRef:
+              name: application
+              key: librenms_ldap_userdn
+        {{- end }}
+        - name: LIBRENMS_AUTH_LDAP_BINDPASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: application
+              key: librenms_ldap_password
+        {{- end }}
+        {{- if eq .Values.Application.authMechanism "active_directory" }}
+        - name: LIBRENMS_AUTH_AD_BINDUSER
+          valueFrom:
+            secretKeyRef:
+              name: application
+              key: librenms_ad_user
+        {{- if .Values.credentials.active_directory.userDN }}
+        - name: LIBRENMS_AUTH_AD_BINDDN
+          valueFrom:
+            secretKeyRef:
+              name: application
+              key: librenms_ad_userdn
+        {{- end }}
+        - name: LIBRENMS_AUTH_AD_BINDPASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: application
+              key: librenms_ad_password
+        {{- end }}
+        - name: LIBRENMS_REDIS_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: application
+              key: librenms_redis_password
+        - name: LIBRENMS_APPLICATION_KEY
+          valueFrom:
+            secretKeyRef:
+              name: application
+              key: librenms_application_key
+        volumeMounts:
+        - name: application-volume
+          mountPath: /opt/librenms
+      {{- include "librenms.checks" . | indent 6 }}
+      containers:
+      - name: php-fpm
+        image: {{ .Values.Application.phpImage.repository }}:{{ .Values.Application.phpImage.tag }}
+        imagePullPolicy: Always
+        envFrom:
+        - configMapRef:
+            name: application
+        volumeMounts:
+        - name: application-volume
+          mountPath: /opt/librenms
+        - name: application-socket
+          mountPath: /sock
+        {{- if .Values.Application.mountCertificates }}
+        - name: ca-bundle
+          mountPath: /etc/ssl/certs/
+          readOnly: true
+        {{- end }}
+      - name: nginx
+        image: {{ .Values.Application.nginxImage.repository }}:{{ .Values.Application.nginxImage.tag }}
+        imagePullPolicy: Always
+        envFrom:
+        - configMapRef:
+            name: application
+        volumeMounts:
+        - name: application-volume
+          mountPath: /opt/librenms
+        - name: application-socket
+          mountPath: /sock
+        {{- if .Values.Application.mountCertificates }}
+        - name: ca-bundle
+          mountPath: /etc/ssl/certs/
+          readOnly: true
+        {{- end }}
+        ports:
+        - name: application
+          containerPort: {{ .Values.Application.providerPort }}
+          protocol: TCP
+      volumes:
+      - name: application-volume
+        emptyDir: {}
+      - name: application-socket
+        emptyDir:
+          medium: Memory
+      {{- if .Values.Application.mountCertificates }}
+      - name: ca-bundle
+        secret:
+          secretName: ca-bundle
+          items:
+          - key: ca-bundle.crt
+            path: ca-certificates.crt
+      {{- end }}

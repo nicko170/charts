@@ -1,0 +1,7 @@
+
+apiVersion: v2
+name: librenms
+description: LibreNMS
+type: application
+version: 0.1.8
+appVersion: 1.70
