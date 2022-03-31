@@ -39,6 +39,7 @@ credentials:
     password:
 
 Application:
+  appUrl: https://librenms.example.com
   serviceType: cluster
   servicePort: 80
   providerPort: 8000
