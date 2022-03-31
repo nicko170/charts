@@ -165,4 +165,15 @@ entries:
     urls:
     - https://github.com/nicko170/charts/releases/download/laravel-0.0.4/laravel-0.0.4.tgz
     version: 0.0.4
-generated: "2022-03-17T06:28:29.380775267Z"
+  librenms:
+  - apiVersion: v2
+    appVersion: "1.7"
+    created: "2022-03-31T01:42:25.812487862Z"
+    description: LibreNMS
+    digest: bea9f4845f3a9db8ddde66b6c5b05b1495db7d980db207e6c7763b10cc998bdd
+    name: librenms
+    type: application
+    urls:
+    - https://github.com/nicko170/charts/releases/download/librenms-0.1.8/librenms-0.1.8.tgz
+    version: 0.1.8
+generated: "2022-03-31T01:42:25.812516564Z"
