@@ -10,10 +10,22 @@ metadata:
   {{- end }}
 
 spec:
-{{- with .Values.Application.TLS }}
+  {{- if and .Values.ingress.ingressClassName }}
+  ingressClassName: {{ .Values.ingress.ingressClassName }}
+  {{- end }}
+  {{- if .Values.ingress.tls }}
   tls:
-{{ toYaml . | indent 2 }}
-{{- end }}
+    {{- range .Values.ingress.tls }}
+    - hosts:
+        {{- range .hosts }}
+        - {{ tpl . $ | quote }}
+          {{- end }}
+      {{- if .secretName }}
+      secretName: {{ tpl .secretName $ | quote}}
+    {{- end }}
+  {{- end }}
+  {{- end }}
+
   rules:
   - host: {{ required "ingress host name must be provided (Application.ingressHost)" .Values.Application.ingressHost }}
     http:
