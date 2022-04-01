@@ -168,6 +168,16 @@ entries:
   librenms:
   - apiVersion: v2
     appVersion: 22.3.0
+    created: "2022-04-01T03:14:40.330334891Z"
+    description: LibreNMS
+    digest: 6c15be630997fe2dae6d33358900611f2fd76ca45b2e7bb920b27e7a8275d61c
+    name: librenms
+    type: application
+    urls:
+    - https://github.com/nicko170/charts/releases/download/librenms-0.4.4/librenms-0.4.4.tgz
+    version: 0.4.4
+  - apiVersion: v2
+    appVersion: 22.3.0
     created: "2022-04-01T03:01:22.383554993Z"
     description: LibreNMS
     digest: 77e9118eba518c544caa4ee1e0a99ec9d386e828208aaff7acdc475786cee947
@@ -326,4 +336,4 @@ entries:
     urls:
     - https://github.com/nicko170/charts/releases/download/librenms-0.1.8/librenms-0.1.8.tgz
     version: 0.1.8
-generated: "2022-04-01T03:01:22.383677396Z"
+generated: "2022-04-01T03:14:40.330497792Z"
