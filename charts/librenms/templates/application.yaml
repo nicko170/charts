@@ -119,7 +119,7 @@ spec:
         component: application
     spec:
       initContainers:
-        {{- include "librenms.checks" . | indent 6 }}
+        {{- include "librenms.checks" . | indent 8 }}
         - name: prepare-volume
           image: {{ .Values.Application.prepareVolumeImage.repository }}:{{ .Values.Application.prepareVolumeImage.tag }}
           imagePullPolicy: Always
