@@ -122,6 +122,8 @@ spec:
       - name: prepare-volume
         image: {{ .Values.Application.prepareVolumeImage.repository }}:{{ .Values.Application.prepareVolumeImage.tag }}
         imagePullPolicy: Always
+        securityContext:
+          runAsUser: 0
         envFrom:
         - configMapRef:
             name: application
@@ -192,6 +194,8 @@ spec:
       - name: php-fpm
         image: {{ .Values.Application.phpImage.repository }}:{{ .Values.Application.phpImage.tag }}
         imagePullPolicy: Always
+        securityContext:
+          runAsUser: 0
         envFrom:
         - configMapRef:
             name: application
@@ -208,6 +212,8 @@ spec:
       - name: nginx
         image: {{ .Values.Application.nginxImage.repository }}:{{ .Values.Application.nginxImage.tag }}
         imagePullPolicy: Always
+        securityContext:
+          runAsUser: 0
         envFrom:
         - configMapRef:
             name: application
