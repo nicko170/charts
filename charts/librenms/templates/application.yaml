@@ -11,7 +11,7 @@ spec:
     requests:
       storage: {{ .Values.Application.storage.size }}
 ---
-{{- if eq .Values.Application.serviceType "ingress" }}
+  {{- if eq .Values.Application.serviceType "ingress" }}
 apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
@@ -63,7 +63,7 @@ spec:
       targetPort: application
 ---
 {{- else if eq .Values.Application.serviceType "loadBalancer" }}
-{{- if .Values.Application.installLoadBalancer }}
+  {{- if .Values.Application.installLoadBalancer }}
 apiVersion: v1
 kind: Service
 metadata:
@@ -82,7 +82,7 @@ spec:
       targetPort: application
 ---
 {{- end }}
-{{- else }}
+  {{- else }}
 apiVersion: v1
 kind: Service
 metadata:
@@ -119,6 +119,7 @@ spec:
         component: application
     spec:
       initContainers:
+        {{- include "librenms.checks" . | indent 6 }}
         - name: prepare-volume
           image: {{ .Values.Application.prepareVolumeImage.repository }}:{{ .Values.Application.prepareVolumeImage.tag }}
           imagePullPolicy: Always
@@ -138,44 +139,7 @@ spec:
                 secretKeyRef:
                   name: application
                   key: librenms_mysql_password
-        {{- if eq .Values.Application.authMechanism "ldap" }}
-            - name: LIBRENMS_AUTH_LDAP_BINDUSER
-              valueFrom:
-                secretKeyRef:
-                  name: application
-                  key: librenms_ldap_user
-        {{- if .Values.credentials.ldap.userDN }}
-            - name: LIBRENMS_AUTH_LDAP_BINDDN
-              valueFrom:
-                secretKeyRef:
-                  name: application
-                  key: librenms_ldap_userdn
-        {{- end }}
-            - name: LIBRENMS_AUTH_LDAP_BINDPASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: application
-                  key: librenms_ldap_password
-        {{- end }}
-        {{- if eq .Values.Application.authMechanism "active_directory" }}
-            - name: LIBRENMS_AUTH_AD_BINDUSER
-              valueFrom:
-                secretKeyRef:
-                  name: application
-                  key: librenms_ad_user
-        {{- if .Values.credentials.active_directory.userDN }}
-            - name: LIBRENMS_AUTH_AD_BINDDN
-              valueFrom:
-                secretKeyRef:
-                  name: application
-                  key: librenms_ad_userdn
-        {{- end }}
-            - name: LIBRENMS_AUTH_AD_BINDPASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: application
-                  key: librenms_ad_password
-        {{- end }}
+
             - name: LIBRENMS_REDIS_PASSWORD
               valueFrom:
                 secretKeyRef:
@@ -191,7 +155,7 @@ spec:
               mountPath: /data/rrd
             - name: application-volume
               mountPath: /opt/librenms
-      {{- include "librenms.checks" . | indent 6 }}
+
       containers:
         - name: php-fpm
           image: {{ .Values.Application.phpImage.repository }}:{{ .Values.Application.phpImage.tag }}
