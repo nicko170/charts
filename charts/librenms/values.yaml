@@ -59,16 +59,16 @@ Application:
   mysqlReadinessDelay: 15
   prepareDatabaseImage:
     repository: "docker.io/nick170/librenms-application-prepare-mysql"
-    tag: "0.4.0"
+    tag: "0.4.4"
   prepareVolumeImage:
     repository: "docker.io/nick170/librenms-application-prepare-volume"
-    tag: "0.4.0"
+    tag: "0.4.4"
   phpImage:
     repository: "docker.io/nick170/librenms-application-php-fpm"
-    tag: "0.4.0"
+    tag: "0.4.4"
   nginxImage:
     repository: "docker.io/nick170/librenms-application-nginx"
-    tag: "0.4.0"
+    tag: "0.4.4"
   replicas: 1
   TLS:
 
@@ -110,7 +110,7 @@ Dispatcher:
   logLevel: "-v"
   image:
     repository: "docker.io/nick170/librenms-dispatcher"
-    tag: "0.4.0"
+    tag: "0.4.4"
 
 snmpPing:
   enabled: false
@@ -120,24 +120,24 @@ snmpPing:
 checkMySQL:
   image:
     repository: "docker.io/nick170/librenms-check-mysql"
-    tag: "0.4.0"
+    tag: "0.4.4"
 
 checkRRDcached:
   image:
     repository: "docker.io/nick170/librenms-check-rrdcached"
-    tag: "0.4.0"
+    tag: "0.4.4"
 
 checkMemcached:
   image:
     repository: "docker.io/nick170/librenms-check-memcached"
-    tag: "0.4.0"
+    tag: "0.4.4"
 
 checkRedis:
   image:
     repository: "docker.io/nick170/librenms-check-redis"
-    tag: "0.4.0"
+    tag: "0.4.4"
 
 cleanupApplication:
   image:
     repository: "docker.io/nick170/librenms-cleanup-application"
-    tag: "0.4.0"
+    tag: "0.4.4"

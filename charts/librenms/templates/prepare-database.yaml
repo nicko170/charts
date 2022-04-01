@@ -49,7 +49,6 @@ spec:
             secretKeyRef:
               name: application
               key: librenms_redis_password
-        {{- if eq .Values.Application.authMechanism "mysql" }}
         - name: LIBRENMS_ADMINISTRATIVE_USER
           valueFrom:
             secretKeyRef:
@@ -65,7 +64,6 @@ spec:
             secretKeyRef:
               name: application
               key: librenms_administrative_email
-        {{- end }}
         - name: LIBRENMS_APPLICATION_KEY
           valueFrom:
             secretKeyRef:
