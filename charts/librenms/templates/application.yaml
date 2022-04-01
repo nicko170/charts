@@ -1,3 +1,16 @@
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: redis-volume-claim
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: {{ .Values.Application.storage.class }}
+  resources:
+    requests:
+      storage: {{ .Values.Application.storage.size }}
+---
 {{- if eq .Values.Application.serviceType "ingress" }}
 apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
@@ -214,7 +227,8 @@ spec:
           protocol: TCP
       volumes:
       - name: application-volume
-        emptyDir: {}
+        persistentVolumeClaim:
+          claimName: application-volume
       - name: application-socket
         emptyDir:
           medium: Memory

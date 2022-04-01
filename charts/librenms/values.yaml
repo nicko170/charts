@@ -37,7 +37,11 @@ credentials:
   redis:
     password:
 
+
 Application:
+  storage:
+    class: default
+    size: 10Gi
   appUrl: https://librenms.example.com
   serviceType: cluster
   servicePort: 80

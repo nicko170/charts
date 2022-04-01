@@ -75,3 +75,14 @@ data:
   LIBRENMS_DISPATCHER_DISCOVERY_WORKERS: {{ .Values.Dispatcher.discoveryWorkers | quote }}
   LIBRENMS_DISPATCHER_SERVICES_WORKERS: {{ .Values.Dispatcher.serviceWorkers | quote }}
   LIBRENMS_DISPATCHER_LOG_LEVEL: {{ .Values.Dispatcher.logLevel | quote }}
+---
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  namespace: {{ .Release.Namespace }}
+  name: appconfig-php
+  labels:
+    helm.sh/chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+data:
+  config.php: |
