@@ -336,4 +336,32 @@ entries:
     urls:
     - https://github.com/nicko170/charts/releases/download/librenms-0.1.8/librenms-0.1.8.tgz
     version: 0.1.8
-generated: "2022-04-01T03:14:40.330497792Z"
+  oxidized:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: Initial version
+    apiVersion: v2
+    appVersion: latest@633bf68d556470326584c3dc2cb6b4d9a298cdfaec679030419ff5226bd89eee
+    created: "2022-05-11T01:42:41.264035997Z"
+    dependencies:
+    - name: common
+      repository: https://library-charts.k8s-at-home.com
+      version: 4.3.0
+    description: oxidized helm package
+    digest: df80b51a2346a0d31fda65b75372041db84313d5a4615f70fde0592feb18fcbe
+    home: https://github.com/nicko170/charts/tree/master/charts/oxidized
+    icon: https://oxidized.org/icon
+    keywords:
+    - oxidized
+    kubeVersion: '>=1.16.0-0'
+    maintainers:
+    - email: nick@npratley.net
+      name: nicko170
+    name: oxidized
+    sources:
+    - https://github.com/ytti/oxidized
+    urls:
+    - https://github.com/nicko170/charts/releases/download/oxidized-1.0.0/oxidized-1.0.0.tgz
+    version: 1.0.0
+generated: "2022-05-11T01:42:41.2641926Z"
