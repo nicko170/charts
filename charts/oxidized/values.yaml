@@ -25,13 +25,28 @@ service:
   main:
     ports:
       http:
-        port: 8888
+        port: 8887
 
 ingress:
   # -- Enable and configure ingress settings for the chart under this key.
   # @default -- See values.yaml
   main:
     enabled: false
+
+config:
+  # -- If set to 'values', the configuration will be read from these values.
+  # Otherwise you have to mount a volume to /etc/nut containing the configuration files.
+  mode: values
+
+  # -- See https://github.com/ytti/oxidized/blob/master/docs/Configuration.md for config sample files
+  # @default -- See values.yaml
+  files:
+    router.db: |
+      router.host.name:group:vendor
+
+    config: |
+      rest: 0.0.0.0:8887
+    
 
 # -- Configure persistence settings for the chart under this key.
 # @default -- See values.yaml

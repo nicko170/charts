@@ -2,7 +2,7 @@ apiVersion: v2
 appVersion: latest@633bf68d556470326584c3dc2cb6b4d9a298cdfaec679030419ff5226bd89eee
 description: oxidized helm package
 name: oxidized
-version: 1.0.0
+version: 1.0.1
 kubeVersion: ">=1.16.0-0"
 keywords:
 - oxidized
