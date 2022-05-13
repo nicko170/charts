@@ -342,6 +342,33 @@ entries:
         - kind: added
           description: Initial version
     apiVersion: v2
+    appVersion: latest
+    created: "2022-05-13T01:46:20.575076916Z"
+    dependencies:
+    - name: common
+      repository: https://library-charts.k8s-at-home.com
+      version: 4.3.0
+    description: oxidized helm package
+    digest: 9670a3a9f107358bd1804848f94108e93f70f2a5eaba2d9b4038f10629bc2341
+    home: https://github.com/nicko170/charts/tree/master/charts/oxidized
+    icon: https://oxidized.org/icon
+    keywords:
+    - oxidized
+    kubeVersion: '>=1.16.0-0'
+    maintainers:
+    - email: nick@npratley.net
+      name: nicko170
+    name: oxidized
+    sources:
+    - https://github.com/ytti/oxidized
+    urls:
+    - https://github.com/nicko170/charts/releases/download/oxidized-1.0.2/oxidized-1.0.2.tgz
+    version: 1.0.2
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: Initial version
+    apiVersion: v2
     appVersion: latest@633bf68d556470326584c3dc2cb6b4d9a298cdfaec679030419ff5226bd89eee
     created: "2022-05-13T00:58:57.203478967Z"
     dependencies:
@@ -391,4 +418,4 @@ entries:
     urls:
     - https://github.com/nicko170/charts/releases/download/oxidized-1.0.0/oxidized-1.0.0.tgz
     version: 1.0.0
-generated: "2022-05-13T00:58:57.203670369Z"
+generated: "2022-05-13T01:46:20.57518222Z"
