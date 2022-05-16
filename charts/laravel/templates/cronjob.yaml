@@ -33,8 +33,10 @@ spec:
             command:
               - {{ . }}
                 {{- end }}
-            {{- with .Values.env }}
             env:
+              - name: "APP_VERSION"
+                value: {{ quote .Values.image.tag }}
+              {{- with .Values.env }}
               {{- range $k, $v := . }}
               {{- $name := $k }}
               {{- $value := $v }}
