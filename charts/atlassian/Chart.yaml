@@ -2,7 +2,7 @@ apiVersion: v2
 appVersion: latest
 description: simple atlassian helm charts
 name: atlassian
-version: 0.0.2
+version: 0.0.3
 kubeVersion: ">=1.16.0-0"
 keywords:
   - atlassian
@@ -15,10 +15,10 @@ maintainers:
   - name: nicko170
     email: nick@npratley.net
 dependencies:
-  - name: mysql
-    version: 8.8.27
+  - name: mariadb
+    version: 11.0.7
     repository: https://charts.bitnami.com/bitnami
-    condition: mysql.enabled
+    condition: mariadb.enabled
 annotations:
   artifacthub.io/changes: |
     - kind: added
