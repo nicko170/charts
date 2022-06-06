@@ -7,6 +7,35 @@ entries:
           description: Initial version
     apiVersion: v2
     appVersion: latest
+    created: "2022-06-06T08:58:43.202262919Z"
+    dependencies:
+    - condition: mysql.enabled
+      name: mysql
+      repository: https://charts.bitnami.com/bitnami
+      version: 8.8.27
+    description: simple atlassian helm charts
+    digest: 8a7ec36978ea4cd2efa52c80c56fcf21b36cd93e335d66e0b6b88a297c1e618a
+    home: https://github.com/nicko170/charts/tree/master/charts/atlassian
+    icon: https://wac-cdn-2.atlassian.com/image/upload/f_auto,q_auto/assets/img/favicons/atlassian/apple-touch-icon-57x57.png
+    keywords:
+    - atlassian
+    kubeVersion: '>=1.16.0-0'
+    maintainers:
+    - email: nick@npratley.net
+      name: nicko170
+    name: atlassian
+    sources:
+    - https://github.com/nicko170/charts
+    - https://github.com/xrobau/atlassian
+    urls:
+    - https://github.com/nicko170/charts/releases/download/atlassian-0.0.2/atlassian-0.0.2.tgz
+    version: 0.0.2
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: Initial version
+    apiVersion: v2
+    appVersion: latest
     created: "2022-06-06T07:17:45.385931669Z"
     dependencies:
     - condition: mysql.enabled
@@ -484,4 +513,4 @@ entries:
     urls:
     - https://github.com/nicko170/charts/releases/download/oxidized-1.0.0/oxidized-1.0.0.tgz
     version: 1.0.0
-generated: "2022-06-06T07:17:45.386023474Z"
+generated: "2022-06-06T08:58:43.202347519Z"
