@@ -1,0 +1,76 @@
+crowd:
+  enabled: false
+  image:
+    repository: xrobau/patched-crowd
+    tag: 4.4.1-1
+    pullPolicy: IfNotPresent
+
+  env:
+    TZ: Australia/Sydney
+    JAVA_OPTS: -Xms512m -Xmx2048m
+    CROWD_URL: http://localhost:8095
+    SPLASH_CONTEXT: ''
+    CROWD_CONTEXT: ROOT
+    DEMO_CONTEXT: ''
+    CROWDID_CONTEXT: ''
+    OPENID_CLIENT_CONTEXT: ''
+
+  servicePort: 8095
+
+  ingress:
+    enabled: false
+  #  host: &domain crowd.host.au
+  #  ingressClassName: nginx
+  #  labels: { }
+  #  annotations:
+  #    cert-manager.io/cluster-issuer: letsencrypt-production
+  #  tls:
+  #    enabled: true
+  #    secretName: *domain
+
+  volumes: { }
+  #  - name: crowd-data
+  #    persistentVolumeClaim:
+  #      claimName: crowd-data
+
+  volumeMounts: { }
+  #  - name: crowd-data
+  #    mountPath: /var/atlassian/crowd
+  #    readOnly: false
+
+confluence:
+  enabled: false
+  image:
+    repository: xrobau/patched-confluence
+    tag: 7.18.1-1
+    pullPolicy: IfNotPresent
+
+  env:
+    TZ: Australia/Sydney
+    JAVA_OPTS: -Xms512m -Xmx4g
+
+  servicePort: 8090
+
+  ingress:
+    enabled: false
+  #  host: &domain confluence.host.au
+  #  ingressClassName: nginx
+  #  labels: { }
+  #  annotations:
+  #    cert-manager.io/cluster-issuer: letsencrypt-production
+  #  tls:
+  #    enabled: true
+  #    secretName: *domain
+
+  volumes: { }
+  #  - name: confluence-data
+  #    persistentVolumeClaim:
+  #      claimName: confluence-data
+
+  volumeMounts: { }
+  #  - name: confluence-data
+  #    mountPath: /var/atlassian/confluence
+  #    readOnly: false
+
+mysql:
+  enabled: false

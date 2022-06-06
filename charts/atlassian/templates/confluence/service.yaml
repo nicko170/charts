@@ -1,0 +1,19 @@
+{{- $values := .Values.confluence -}}
+{{- if $values.enabled }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "app.name" . }}-confluence-service
+  labels:
+    {{- include "chart.labels" . | nindent 4 }}
+spec:
+  type: ClusterIP
+  ports:
+    - name: confluence
+      port: 80
+      targetPort: {{ $values.servicePort }}
+  selector:
+    {{ include "chart.selectors.confluence" . | nindent 4 }}
+
+{{- end -}}

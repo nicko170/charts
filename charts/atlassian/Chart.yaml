@@ -1,0 +1,25 @@
+apiVersion: v2
+appVersion: latest
+description: simple atlassian helm charts
+name: atlassian
+version: 0.0.1
+kubeVersion: ">=1.16.0-0"
+keywords:
+  - oxidized
+home: https://github.com/nicko170/charts/tree/master/charts/atlassian
+icon: https://wac-cdn-2.atlassian.com/image/upload/f_auto,q_auto/assets/img/favicons/atlassian/apple-touch-icon-57x57.png
+sources:
+  - https://github.com/nicko170/charts
+  - https://github.com/xrobau/atlassian
+maintainers:
+  - name: nicko170
+    email: nick@npratley.net
+dependencies:
+  - name: mysql
+    version: 8.8.27
+    repository: https://charts.bitnami.com/bitnami
+    condition: mysql.enabled
+annotations:
+  artifacthub.io/changes: |
+    - kind: added
+      description: Initial version

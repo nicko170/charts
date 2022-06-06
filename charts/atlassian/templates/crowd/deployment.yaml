@@ -1,0 +1,84 @@
+{{- $values := .Values.crowd -}}
+
+{{- if $values.enabled }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "app.name" . }}-crowd-app
+  labels:
+  {{ include "chart.labels" . | nindent 4 }}
+  {{ include "chart.selectors.crowd" . | nindent 4 }}
+
+spec:
+  selector:
+    matchLabels:
+  {{ include "chart.selectors.crowd" . | nindent 6 }}
+
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+  revisionHistoryLimit: 3
+  template:
+    metadata:
+      labels:
+    {{ include "chart.labels" . | nindent 8 }}
+    {{ include "chart.selectors.crowd" . | nindent 8 }}
+
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+      {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with $values.volumes }}
+      volumes:
+      {{- toYaml . | nindent 8 }}
+      {{- end }}
+      dnsPolicy: ClusterFirst
+      containers:
+        - name: {{ include "app.name" . }}-crowd-app
+          image: {{ printf "%s:%s" $values.image.repository (default .Chart.AppVersion $values.image.tag) | quote }}
+          imagePullPolicy: {{ $values.image.pullPolicy }}
+
+          env:
+          {{- with $values.env }}
+            {{- range $k, $v := . }}
+            {{- $name := $k }}
+            {{- $value := $v }}
+            {{- if kindIs "int" $name }}
+            {{- $name = required "environment variables as a list of maps require a name field" $value.name }}
+            {{- end }}
+            - name: {{ quote $name }}
+              {{- if kindIs "map" $value -}}
+              {{- if hasKey $value "value" }}
+              {{- $value = $value.value -}}
+              {{- else if hasKey $value "valueFrom" }}
+              {{- toYaml $value | nindent 6 }}
+              {{- else }}
+              {{- dict "valueFrom" $value | toYaml | nindent 6 }}
+              {{- end }}
+              {{- end }}
+              {{- if not (kindIs "map" $value) }}
+              {{- if kindIs "string" $value }}
+              {{- $value = tpl $value $ }}
+              {{- end }}
+              value: {{ quote $value }}
+          {{- end }}
+          {{- end }}
+          {{- end }}
+
+          {{- with $values.envFrom }}
+          envFrom:
+          {{- toYaml . | nindent 12 }}
+          {{- end }}
+
+          {{- with $values.volumeMounts }}
+          volumeMounts:
+          {{- toYaml . | nindent 12 }}
+          {{- end }}
+
+          {{- with $values.servicePort }}
+          ports:
+            - containerPort: {{ . }}
+              name: http
+          {{- end }}
+  {{- end }}

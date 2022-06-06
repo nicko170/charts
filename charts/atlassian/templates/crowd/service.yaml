@@ -1,0 +1,19 @@
+{{- $values := .Values.crowd -}}
+{{- if $values.enabled }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "app.name" . }}-crowd-service
+  labels:
+    {{- include "chart.labels" . | nindent 4 }}
+spec:
+  type: ClusterIP
+  ports:
+    - name: crowd
+      port: 80
+      targetPort: {{ $values.servicePort }}
+  selector:
+    {{ include "chart.selectors.crowd" . | nindent 4 }}
+
+{{- end -}}
