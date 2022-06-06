@@ -1,8 +1,8 @@
 crowd:
   enabled: false
   image:
-    repository: xrobau/patched-crowd
-    tag: 4.4.1-1
+    repository: nick170/patched-crowd
+    tag: 5.0.0-1
     pullPolicy: IfNotPresent
 
   env:
@@ -41,7 +41,7 @@ crowd:
 confluence:
   enabled: false
   image:
-    repository: xrobau/patched-confluence
+    repository: nick170/patched-confluence
     tag: 7.18.1-1
     pullPolicy: IfNotPresent
 

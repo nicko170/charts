@@ -2,10 +2,10 @@ apiVersion: v2
 appVersion: latest
 description: simple atlassian helm charts
 name: atlassian
-version: 0.0.1
+version: 0.0.2
 kubeVersion: ">=1.16.0-0"
 keywords:
-  - oxidized
+  - atlassian
 home: https://github.com/nicko170/charts/tree/master/charts/atlassian
 icon: https://wac-cdn-2.atlassian.com/image/upload/f_auto,q_auto/assets/img/favicons/atlassian/apple-touch-icon-57x57.png
 sources:
