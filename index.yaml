@@ -7,6 +7,35 @@ entries:
           description: Initial version
     apiVersion: v2
     appVersion: latest
+    created: "2022-06-09T03:36:32.823006021Z"
+    dependencies:
+    - condition: mariadb.enabled
+      name: mariadb
+      repository: https://charts.bitnami.com/bitnami
+      version: 11.0.7
+    description: simple atlassian helm charts
+    digest: 33bddf421293089344b7ed152f02dede3adaf9e0b9673d06f4705a02b7ae346e
+    home: https://github.com/nicko170/charts/tree/master/charts/atlassian
+    icon: https://wac-cdn-2.atlassian.com/image/upload/f_auto,q_auto/assets/img/favicons/atlassian/apple-touch-icon-57x57.png
+    keywords:
+    - atlassian
+    kubeVersion: '>=1.16.0-0'
+    maintainers:
+    - email: nick@npratley.net
+      name: nicko170
+    name: atlassian
+    sources:
+    - https://github.com/nicko170/charts
+    - https://github.com/xrobau/atlassian
+    urls:
+    - https://github.com/nicko170/charts/releases/download/atlassian-0.0.5/atlassian-0.0.5.tgz
+    version: 0.0.5
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: Initial version
+    apiVersion: v2
+    appVersion: latest
     created: "2022-06-09T03:06:19.298872589Z"
     dependencies:
     - condition: mariadb.enabled
@@ -571,4 +600,4 @@ entries:
     urls:
     - https://github.com/nicko170/charts/releases/download/oxidized-1.0.0/oxidized-1.0.0.tgz
     version: 1.0.0
-generated: "2022-06-09T03:06:19.298964087Z"
+generated: "2022-06-09T03:36:32.823091823Z"
