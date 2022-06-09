@@ -2,7 +2,7 @@ apiVersion: v2
 appVersion: latest
 description: simple atlassian helm charts
 name: atlassian
-version: 0.0.4
+version: 0.0.5
 kubeVersion: ">=1.16.0-0"
 keywords:
   - atlassian

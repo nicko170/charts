@@ -24,3 +24,8 @@ app.kubernetes.io/instance: {{ .Release.Name }}
 app.kubernetes.io/name: {{ include "app.name" . }}-confluence
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end -}}
+
+{{- define "chart.selectors.jira" -}}
+app.kubernetes.io/name: {{ include "app.name" . }}-jira
+app.kubernetes.io/instance: {{ .Release.Name }}
+{{- end -}}
