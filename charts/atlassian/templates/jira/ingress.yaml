@@ -1,0 +1,51 @@
+{{- $serviceName := include "app.name" . -}}
+{{- $values := .Values.jira -}}
+{{- $ingress := .Values.jira.ingress -}}
+{{- if $values.enabled }}
+{{- if $ingress.enabled  }}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ include "app.name" . }}-jira-ingress
+  labels:
+  {{ include "chart.labels" . | nindent 4 }}
+  {{ include "chart.selectors.jira" . | nindent 4 }}
+  {{- with $ingress.labels }}
+  {{- toYaml . | nindent 4 }}
+  {{- end }}
+  {{- with $ingress.annotations }}
+  annotations:
+  {{- toYaml . | nindent 4 }}
+  {{- end }}
+
+spec:
+  {{- if and $ingress.ingressClassName }}
+  ingressClassName: {{ $ingress.ingressClassName }}
+  {{- end }}
+  {{- if $ingress.tls.enabled }}
+  tls:
+    - hosts:
+        - {{ $ingress.host }}
+      {{- if $ingress.tls.secretName }}
+      secretName: {{ $ingress.tls.secretName  | quote}}
+  {{- end }}
+  {{- end }}
+
+
+ {{- if $ingress.host }}
+  rules:
+    - host: {{ $ingress.host | quote }}
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ $serviceName }}-jira-service
+                port:
+                  number: 80
+
+ {{- end }}
+
+{{- end }}
+{{- end }}

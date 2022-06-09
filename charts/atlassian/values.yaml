@@ -2,7 +2,7 @@ crowd:
   enabled: false
   image:
     repository: nick170/patched-crowd
-    tag: 5.0.0-1
+    tag: 5.0.0-5
     pullPolicy: IfNotPresent
 
   env:
@@ -42,7 +42,7 @@ confluence:
   enabled: false
   image:
     repository: nick170/patched-confluence
-    tag: 7.18.1-1
+    tag: 7.18.1-5
     pullPolicy: IfNotPresent
 
   env:
@@ -70,6 +70,41 @@ confluence:
   volumeMounts: { }
   #  - name: confluence-data
   #    mountPath: /var/atlassian/confluence
+  #    readOnly: false
+
+jira:
+  enabled: false
+  image:
+    repository: nick170/patched-jira
+    tag: 8.22.3-5
+    pullPolicy: IfNotPresent
+
+  env:
+    TZ: Australia/Sydney
+    JAVA_OPTS: -Xms512m -Xmx4g
+    CATALINA_OPTS: "-Djira.downgrade.allowed=false"
+
+  servicePort: 8080
+
+  ingress:
+    enabled: false
+  #  host: &domain jira.host.au
+  #  ingressClassName: nginx
+  #  labels: { }
+  #  annotations:
+  #    cert-manager.io/cluster-issuer: letsencrypt-production
+  #  tls:
+  #    enabled: true
+  #    secretName: *domain
+
+  volumes: { }
+  #  - name: jira-data
+  #    persistentVolumeClaim:
+  #      claimName: jira-data
+
+  volumeMounts: { }
+  #  - name: jira-data
+  #    mountPath: /var/atlassian/jira
   #    readOnly: false
 
 mysql:

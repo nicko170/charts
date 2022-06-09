@@ -1,0 +1,19 @@
+{{- $values := .Values.jira -}}
+{{- if $values.enabled }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "app.name" . }}-jira-service
+  labels:
+    {{- include "chart.labels" . | nindent 4 }}
+spec:
+  type: ClusterIP
+  ports:
+    - name: jira
+      port: 80
+      targetPort: {{ $values.servicePort }}
+  selector:
+    {{ include "chart.selectors.jira" . | nindent 4 }}
+
+{{- end -}}
