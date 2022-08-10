@@ -153,6 +153,42 @@ entries:
           description: Initial version
     apiVersion: v2
     appVersion: v0.0.0
+    created: "2022-08-10T00:47:18.650842526Z"
+    dependencies:
+    - condition: mysql.enabled
+      name: mysql
+      repository: https://charts.bitnami.com/bitnami
+      version: 8.8.27
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 11.1.3
+    - condition: redis.enabled
+      name: redis
+      repository: https://charts.bitnami.com/bitnami
+      version: 16.4.5
+    description: Opinionated Laravel Helm Charts
+    digest: f868474d39f7ab5c4bb838eb49f0bc61591ea01b0acc37810c5af1752b2b8a6e
+    home: https://github.com/nicko170/charts/tree/main/charts/stable/laravel
+    icon: https://laravel.app/icon
+    keywords:
+    - laravel
+    kubeVersion: '>=1.19.0-0'
+    maintainers:
+    - email: nick@npratley.net
+      name: Nick Pratley
+    name: laravel
+    sources:
+    - https://github.com/nicko170/laravel
+    urls:
+    - https://github.com/nicko170/charts/releases/download/laravel-0.1.0/laravel-0.1.0.tgz
+    version: 0.1.0
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: Initial version
+    apiVersion: v2
+    appVersion: v0.0.0
     created: "2022-05-16T04:16:03.498753836Z"
     dependencies:
     - condition: mysql.enabled
@@ -600,4 +636,4 @@ entries:
     urls:
     - https://github.com/nicko170/charts/releases/download/oxidized-1.0.0/oxidized-1.0.0.tgz
     version: 1.0.0
-generated: "2022-06-09T03:36:32.823091823Z"
+generated: "2022-08-10T00:47:18.650935127Z"
