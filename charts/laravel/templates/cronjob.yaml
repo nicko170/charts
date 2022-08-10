@@ -20,6 +20,10 @@ spec:
             {{ include "laravel.labels" . | nindent 12 }}
             {{ include "laravel.labels.cron" . | nindent 12 }}
         spec:
+          {{- with .Values.imagePullSecrets }}
+          imagePullSecrets:
+          {{- toYaml . | nindent 12 }}
+          {{- end }}
           restartPolicy: Never
           {{- with .Values.volumes }}
           volumes:
