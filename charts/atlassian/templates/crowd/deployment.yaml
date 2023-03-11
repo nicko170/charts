@@ -16,7 +16,7 @@ spec:
 
   replicas: 1
   strategy:
-    type: RollingUpdate
+    type: {{ required "A valid deployment strategy must be specified!" $values.deployment.strategy | quote }}
   revisionHistoryLimit: 3
   template:
     metadata:
