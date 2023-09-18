@@ -12,7 +12,7 @@ laravel helm package
 
 ## Requirements
 
-Kubernetes: `>=1.16.0-0`
+Kubernetes: `>=1.24.0-0`
 
 ## Dependencies
 

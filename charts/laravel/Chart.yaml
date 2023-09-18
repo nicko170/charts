@@ -2,8 +2,8 @@ apiVersion: v2
 appVersion: v0.0.0
 description: Opinionated Laravel Helm Charts
 name: laravel
-version: 0.1.0
-kubeVersion: ">=1.19.0-0"
+version: 0.2.0
+kubeVersion: ">=1.24.0-0"
 keywords:
 - laravel
 home: https://github.com/nicko170/charts/tree/main/charts/stable/laravel
