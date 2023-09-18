@@ -1,15 +1,16 @@
 name: Release Charts
+
 on:
   workflow_dispatch:
   push:
     branches:
       - main
-    paths:
-      - "charts/**"
-      - ".github/workflows/release.yaml"
 
 jobs:
   release:
+    permissions:
+      contents: write
+      
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -22,13 +23,10 @@ jobs:
           git config user.name "$GITHUB_ACTOR"
           git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
 
-      - name: Add dependency chart repos
-        run: |
-          helm repo add bitnami https://charts.bitnami.com/bitnami
-          helm repo add k8sathome https://library-charts.k8s-at-home.com
+      - name: Install Helm
+        uses: azure/setup-helm@v3
 
       - name: Run chart-releaser
-        uses: helm/chart-releaser-action@v1.3.0
-
+        uses: helm/chart-releaser-action@v1.5.0
         env:
           CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
