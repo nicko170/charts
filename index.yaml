@@ -181,7 +181,7 @@ entries:
     sources:
     - https://github.com/nicko170/laravel
     urls:
-    - https://github.com/nicko170/charts/releases/download/laravel-0.1.0/laravel-0.1.0.tgz
+    - http://charts.nicko170.au/laravel-0.1.0.tgz
     version: 0.1.0
   - annotations:
       artifacthub.io/changes: |
