@@ -16,6 +16,8 @@ crowd:
     OPENID_CLIENT_CONTEXT: ''
 
   servicePort: 8095
+  deployment:
+    strategy: RollingUpdate
 
   ingress:
     enabled: false
@@ -50,6 +52,8 @@ confluence:
     JAVA_OPTS: -Xms512m -Xmx4g
 
   servicePort: 8090
+  deployment:
+    strategy: Recreate
 
   ingress:
     enabled: false
@@ -85,6 +89,8 @@ jira:
     CATALINA_OPTS: "-Djira.downgrade.allowed=false"
 
   servicePort: 8080
+  deployment:
+    strategy: RollingUpdate
 
   ingress:
     enabled: false
